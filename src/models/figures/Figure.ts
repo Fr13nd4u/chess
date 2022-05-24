@@ -28,6 +28,10 @@ export class Figure {
   }
 
   canMove(target: Cell) : boolean {
+    if (target.figure?.isPrimary === this.isPrimary)
+      return false;
+    if (target.figure?.name === FiguresName.KING)
+      return false;
     return true;
   }
 
