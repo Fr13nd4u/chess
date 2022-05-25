@@ -1,15 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Board } from "../models/Board";
 import { Cell } from "../models/Cell";
+import { Player } from "../models/Player";
 import CellComponent from "./CellComponent";
 
 interface BoardProps {
   board: Board;
   setBoard: (board: Board) => void;
+  currentPlayer: Player | null;
+  swapPlayer: () => void;
 }
 
-const BoardComponent: FC<BoardProps> = ({ board, setBoard }) => {
+const BoardComponent: FC<BoardProps> = ({
+  board,
+  setBoard,
+  currentPlayer,
+  swapPlayer,
+}) => {
   const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
 
   const click = (cell: Cell) => {
@@ -19,9 +28,13 @@ const BoardComponent: FC<BoardProps> = ({ board, setBoard }) => {
       selectedCell.figure?.canMove(cell)
     ) {
       selectedCell.moveFigure(cell);
+      swapPlayer();
       setSelectedCell(null);
+      updateBoard();
     } else {
-      setSelectedCell(cell);
+      if (cell.figure?.isWhite === currentPlayer?.isWhite) {
+        setSelectedCell(cell);
+      }
     }
   };
 
@@ -40,22 +53,25 @@ const BoardComponent: FC<BoardProps> = ({ board, setBoard }) => {
   };
 
   return (
-    <BoardWrapper>
-      {board.cells.map((row, index) => (
-        <React.Fragment key={index}>
-          {row.map((cell) => (
-            <CellComponent
-              click={click}
-              cell={cell}
-              key={cell.id}
-              selected={
-                cell.x === selectedCell?.x && cell.y === selectedCell?.y
-              }
-            />
-          ))}
-        </React.Fragment>
-      ))}
-    </BoardWrapper>
+    <>
+      <h3>Current player: {currentPlayer?.isWhite ? "white" : "black"}</h3>
+      <BoardWrapper>
+        {board.cells.map((row, index) => (
+          <React.Fragment key={index}>
+            {row.map((cell) => (
+              <CellComponent
+                click={click}
+                cell={cell}
+                key={cell.id}
+                selected={
+                  cell.x === selectedCell?.x && cell.y === selectedCell?.y
+                }
+              />
+            ))}
+          </React.Fragment>
+        ))}
+      </BoardWrapper>
+    </>
   );
 };
 

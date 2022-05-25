@@ -4,24 +4,31 @@ import { Figure } from "./figures/Figure";
 export class Cell {
   readonly x: number;
   readonly y: number;
-  readonly isPrimary: boolean;
+  readonly isWhite: boolean;
   figure: Figure | null;
   board: Board;
   available: boolean; // can the figure move
   id: number; // for react keys
 
-  constructor(board: Board, x: number, y: number, isPrimary: boolean, figure: Figure | null) {
+  constructor(board: Board, x: number, y: number, isWhite: boolean, figure: Figure | null) {
     this.x = x;
     this.y = y;
-    this.isPrimary = isPrimary;
+    this.isWhite = isWhite;
     this.figure = figure
     this.board = board;
     this.available = false;
     this.id = Math.random();
   }
 
-  isEmpty() {
+  isEmpty(): boolean {
     return this.figure === null
+  }
+
+  isEnemy(target: Cell): boolean {
+    if (target.figure) {
+      return this.figure?.isWhite !== target.figure.isWhite;
+    }
+    return false;
   }
 
   isEmptyVertical(target: Cell): boolean {

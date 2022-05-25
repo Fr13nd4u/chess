@@ -4,9 +4,9 @@ import blackLogo from "../../assets/black-bishop.png"
 import whiteLogo from "../../assets/white-bishop.png"
 
 export class Bishop extends Figure {
-  constructor(isPrimary: boolean, cell: Cell) {
-    super(isPrimary, cell);
-    this.logo = isPrimary ? whiteLogo : blackLogo ;
+  constructor(isWhite: boolean, cell: Cell) {
+    super(isWhite, cell);
+    this.logo = isWhite ? whiteLogo : blackLogo ;
     this.name = FiguresName.BISHOP;
   }
 

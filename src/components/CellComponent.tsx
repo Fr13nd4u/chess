@@ -28,7 +28,7 @@ const CellC = styled.div<CellProps>`
   align-items: center;
 
   background: ${({ cell }) =>
-    cell.isPrimary ? COLORS.PRIMARY : COLORS.SECONDARY};
+    cell.isWhite ? COLORS.PRIMARY : COLORS.SECONDARY};
   background: ${({ cell }) => cell.available && cell.figure && "green"};
 `;
 

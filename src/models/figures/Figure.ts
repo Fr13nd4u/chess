@@ -12,14 +12,14 @@ export enum FiguresName {
 }
 
 export class Figure {
-  isPrimary: boolean;
+  isWhite: boolean;
   logo: typeof logo | null;
   cell: Cell;
   name: FiguresName;
   id: number;
 
-  constructor(isPrimary: boolean, cell: Cell) {
-    this.isPrimary = isPrimary;
+  constructor(isWhite: boolean, cell: Cell) {
+    this.isWhite = isWhite;
     this.cell = cell;
     this.cell.figure = this;
     this.logo = null;
@@ -28,14 +28,14 @@ export class Figure {
   }
 
   canMove(target: Cell) : boolean {
-    if (target.figure?.isPrimary === this.isPrimary)
+    if (target.figure?.isWhite === this.isWhite)
       return false;
     if (target.figure?.name === FiguresName.KING)
       return false;
     return true;
   }
 
-  moveFigure(tareget: Cell) {
+  moveFigure(target: Cell) {
 
   }
 }

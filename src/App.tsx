@@ -4,12 +4,17 @@ import styled from "styled-components";
 
 import BoardComponent from "./components/BoardComponent";
 import { Board } from "./models/Board";
+import { Player } from "./models/Player";
 
 const App: FC = () => {
   const [board, setBoard] = useState(new Board());
+  const [whitePlayer, setWhitePlayer] = useState(new Player(true));
+  const [blackPlayer, setBlackPlayer] = useState(new Player(false));
+  const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
 
   useEffect(() => {
     restart();
+    setCurrentPlayer(whitePlayer);
   }, []);
 
   const restart = () => {
@@ -19,10 +24,19 @@ const App: FC = () => {
     setBoard(newBoard);
   };
 
+  const swapPlayer = () => {
+    setCurrentPlayer(currentPlayer?.isWhite ? blackPlayer : whitePlayer);
+  };
+
   return (
     <AppWrapper>
       <GlobalStyle />
-      <BoardComponent board={board} setBoard={setBoard} />
+      <BoardComponent
+        board={board}
+        setBoard={setBoard}
+        currentPlayer={currentPlayer}
+        swapPlayer={swapPlayer}
+      />
     </AppWrapper>
   );
 };
