@@ -53,7 +53,7 @@ const BoardComponent: FC<BoardProps> = ({
   };
 
   return (
-    <>
+    <div>
       <h3>Current player: {currentPlayer?.isWhite ? "white" : "black"}</h3>
       <BoardWrapper>
         {board.cells.map((row, index) => (
@@ -71,7 +71,7 @@ const BoardComponent: FC<BoardProps> = ({
           </React.Fragment>
         ))}
       </BoardWrapper>
-    </>
+    </div>
   );
 };
 

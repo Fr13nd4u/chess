@@ -5,6 +5,7 @@ import styled from "styled-components";
 import BoardComponent from "./components/BoardComponent";
 import { Board } from "./models/Board";
 import { Player } from "./models/Player";
+import LostFigures from "./components/LostFigures";
 
 const App: FC = () => {
   const [board, setBoard] = useState(new Board());
@@ -37,6 +38,10 @@ const App: FC = () => {
         currentPlayer={currentPlayer}
         swapPlayer={swapPlayer}
       />
+      <LostBoard>
+        <LostFigures title="Black figures" figures={board.lostBlackFigures} />
+        <LostFigures title="White figures" figures={board.lostWhiteFigures} />
+      </LostBoard>
     </AppWrapper>
   );
 };
@@ -44,6 +49,12 @@ const App: FC = () => {
 const AppWrapper = styled.div`
   width: 100vw;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const LostBoard = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
