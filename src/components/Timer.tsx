@@ -3,7 +3,7 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import { Player } from "../models/Player";
 
 interface TimerProps {
-  currentPlayer: Player;
+  currentPlayer: Player | null;
   restart: () => void;
 }
 
@@ -21,7 +21,7 @@ const Timer: FC<TimerProps> = ({ currentPlayer, restart }) => {
       clearInterval(timer.current);
     }
 
-    const callback = currentPlayer.isWhite
+    const callback = currentPlayer?.isWhite
       ? decrementWhiteTimer
       : decrementBlackTimer;
 
@@ -31,14 +31,21 @@ const Timer: FC<TimerProps> = ({ currentPlayer, restart }) => {
   const decrementBlackTimer = () => {
     setBlackTime((prev) => prev - 1);
   };
+
   const decrementWhiteTimer = () => {
     setWhiteTime((prev) => prev - 1);
+  };
+
+  const handleRestart = () => {
+    setBlackTime(300);
+    setWhiteTime(300);
+    restart();
   };
 
   return (
     <div>
       <div>
-        <button onClick={restart}>Restart</button>
+        <button onClick={handleRestart}>Restart Game</button>
         <h2>black time - {blackTime}</h2>
         <h2>white time - {whiteTime}</h2>
       </div>

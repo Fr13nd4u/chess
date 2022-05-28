@@ -6,6 +6,7 @@ import BoardComponent from "./components/BoardComponent";
 import { Board } from "./models/Board";
 import { Player } from "./models/Player";
 import LostFigures from "./components/LostFigures";
+import Timer from "./components/Timer";
 
 const App: FC = () => {
   const [board, setBoard] = useState(new Board());
@@ -32,6 +33,7 @@ const App: FC = () => {
   return (
     <AppWrapper>
       <GlobalStyle />
+      <Timer currentPlayer={currentPlayer} restart={restart} />
       <BoardComponent
         board={board}
         setBoard={setBoard}
